@@ -22,21 +22,22 @@ for i = 1:length(data)
     Y(m, n) = data(i, 3);
 end
 %% Choose a number of latent factors.
-k = 19;
+k = 15;
 %% Initialize U and V randomly
 U = rand(users, k);
 V = rand(movies, k);
 %% Optimize U and V using ALS
 % Choose a value of lambda.
-lambda = 1;
+lambda = 100;
 next_U = new_U(Y, V, lambda);
 n = norm((U-next_U), 'fro');
-while n > 0
+while n > 1
     U = next_U;
     V = new_V(Y, U, lambda);
     next_U = new_U(Y, V, lambda);
     n = norm((U-next_U), 'fro');
 end
+%%
 U = next_U;
 V = new_V(Y, U, lambda);
 %% Part 2: Projecting U and V onto 2 dimensions.
