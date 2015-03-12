@@ -28,14 +28,14 @@ U = rand(users, k);
 V = rand(movies, k);
 %% Optimize U and V using ALS
 % Choose a value of lambda.
-lambda = 100;
+lambda = 1;
 next_U = new_U(Y, V, lambda);
 n = norm((U-next_U), 'fro');
-while n > 1
+while n > 0.01
     U = next_U;
     V = new_V(Y, U, lambda);
     next_U = new_U(Y, V, lambda);
-    n = norm((U-next_U), 'fro');
+    n = norm((U-next_U), 'fro')
 end
 %%
 U = next_U;
@@ -54,3 +54,4 @@ end
 %% Reduce U and V to highest 2 dimensions.
 U2d = Au(1:2, :)*U';
 V2d = Av(1:2, :)*V';
+%% Plot shit
