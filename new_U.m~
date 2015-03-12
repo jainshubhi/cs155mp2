@@ -1,7 +1,0 @@
-function [ U ] = new_U( Y, V, lambda )
-%new_U Calculate 
-%   Detailed explanation goes here
-
-
-end
-

@@ -37,11 +37,11 @@ while n > 1
     next_U = new_U(Y, V, lambda);
     n = norm((U-next_U), 'fro');
 end
-%%
+%% 
 U = next_U;
 V = new_V(Y, U, lambda);
 %% Part 2: Projecting U and V onto 2 dimensions.
-%% Mean center both U and V so all rows have a mean of 0.
+% Mean center both U and V so all rows have a mean of 0.
 for i = 1:users
     U(i, :) = U(i, :) - mean(U(i,:));
 end
@@ -54,3 +54,13 @@ end
 %% Reduce U and V to highest 2 dimensions.
 U2d = Au(1:2, :)*U';
 V2d = Av(1:2, :)*V';
+
+%% Plot specific data points from four genres
+file_genres = fopen('./miniproject2_data/movies_wotxt.txt');
+formatSpec = '%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d';
+genres = textscan(file_genres, formatSpec);
+
+g1 = genres(genres(1) == 1);
+g2 = genres(genres(2) == 1);
+g3 = genres(genres(3) == 1);
+g4 = genres(genres(4) == 1);
