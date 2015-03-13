@@ -23,8 +23,8 @@ for j = 1:n
     for i = 1:m
         % Only learn on entries of Y that exist.
         if Y(i, j) ~= 0
-            Umat = Umat + U(i, :)'*U(i, :);
-            y_vec = y_vec + Y(i, j)*U(i,:)';
+            Umat = Umat + U(i, :)' * U(i, :);
+            y_vec = y_vec + Y(i, j) * U(i,:)';
         end
     end
     % Calculate the row of U

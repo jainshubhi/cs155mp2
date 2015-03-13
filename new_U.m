@@ -8,10 +8,10 @@ function [ U ] = new_U( Y, V, lambda )
 [m, n] = size(Y);
 % Initialize U.
 U = zeros(m, k);
-% Create a kxk identity.
+% Create a k x k identity.
 I = eye(k);
 % Scale identity by regulation factor lambda.
-L = lambda*I;
+L = lambda * I;
 % Find each row of U using the least squares optimal solution.
 for i = 1:m
     % Calculate the V matrix which is a sum of matrices created by columns
@@ -23,8 +23,8 @@ for i = 1:m
     for j = 1:n
         % Only learn on entries of Y that exist.
         if Y(i, j) ~= 0
-            Vmat = Vmat + V(j, :)'*V(j, :);
-            y_vec = y_vec + Y(i, j)*V(j,:)';
+            Vmat = Vmat + V(j, :)' * V(j, :);
+            y_vec = y_vec + Y(i, j) * V(j,:)';
         end
     end
     % Calculate the row of U

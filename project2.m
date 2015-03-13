@@ -9,9 +9,9 @@ data = cell2mat(textscan(file_data, formatSpec));
 %% Part 1: Finding Y = UV'
 %% Create Y
 % Find the number of users.
-users = max(data(:,1));
+users = max(data(:, 1));
 % Find the number of movies.
-movies = max(data(:,2));
+movies = max(data(:, 2));
 % Initialze Y to all zeros.
 Y = zeros(users, movies);
 % Loop through the data set.
@@ -36,12 +36,12 @@ V = rand(movies, k);
 
 %% Optimize U and V using ALS
 next_U = new_U(Y, V, lambda);
-n = norm((U-next_U), 'fro');
+n = norm((U - next_U), 'fro');
 while n > 1.1
     U = next_U;
     V = new_V(Y, U, lambda);
     next_U = new_U(Y, V, lambda);
-    n = norm((U-next_U), 'fro');
+    n = norm((U - next_U), 'fro');
 end
 
 U = next_U;
@@ -53,8 +53,8 @@ V = new_V(Y, U, lambda);
 [Av, Sv, Bv] = svd(V, 'econ');
 
 %% Reduce U and V to highest 2 dimensions.
-U2d = Au(1:2, :)*U';
-V2d = Av(1:2, :)*V';
+U2d = Au(1:2, :) * U';
+V2d = Av(1:2, :) * V';
 
 %% Part 3: Visualization
 file_genres = fopen('./miniproject2_data/movies_wotxt.txt');
@@ -77,7 +77,7 @@ scatter(genre_means1, genre_means2, 'k.');
 hold on
 xlabel('Dimension 1');
 ylabel('Dimension 2');
-a = [1:19]';
+a = (1:19)';
 b = num2str(a);
 labels = cellstr(b);
 dx = 0.0001;
