@@ -63,15 +63,24 @@ V = new_V(Y, U, lambda);
 U2d = Au(1:2, :)*U';
 V2d = Av(1:2, :)*V';
 
-%% Plot specific data points from four genres
+%% Part 3: Visualization
 file_genres = fopen('./miniproject2_data/movies_wotxt.txt');
 formatSpec = '%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d';
 genres = cell2mat(textscan(file_genres, formatSpec));
 
+%% Genre Plots
 g1 = genres(genres(:, 10) == 1);
 g2 = genres(genres(:, 16) == 1);
 g3 = genres(genres(:, 7) == 1);
 g4 = genres(genres(:, 8) == 1);
+
+scatter(V2d(1, g1), V2d(2, g1), 'r');
+hold on
+
+scatter(V2d(1, g2), V2d(2, g2), 'k');
+scatter(V2d(1, g3), V2d(2, g3), 'b');
+scatter(V2d(1, g4), V2d(2, g4), 'g');
+hold off
 
 %% Series Plots
 % Die Hard series
