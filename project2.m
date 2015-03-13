@@ -114,6 +114,13 @@ title('Visual Representation of Model - Series');
 hold off
 
 %% Difference in Dimension Plot
+
+pred20 = U * V';
+pred2 = U2d' * V2d;
+
+diff = pred2 - pred20;
+diff = reshape(diff, [1, 943 * 1682]);
+line(diff);
 % scatter(V2d(1, g1), V2d(2, g1), 'r');
 hold on
 
