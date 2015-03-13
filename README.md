@@ -14,10 +14,12 @@ weights in our model. So, we plot the values of V for a few series:
 [******]
 
 We also want to check that our projection from 20 dimensions to 2 dimensions did not
-lose too much information. So, we plot the change in rating from predicting with all
-20 dimensions to predicting with just 2 dimensions to make sure the deltas are not
-too large:
-[******]
+lose too much information. So, we find the difference in normalized scores between
+the two different models, and look at the difference. The average difference is
+-2.8276e-14, very close to 0. The standard deviation of the difference is 1.4268. Since
+it is centered, this indicates a random error and we can conclude that the 2 dimensional
+model is fairly accurate.
+
 
 Now, we would like to see if the dimensions mean something that we can interpret. So,
 we plot the means of each genre:
@@ -44,5 +46,6 @@ The genres are labeled as follows:
 18: War
 19: Western
 
-So, we see that these two dimensions can be interpreted as having some meaning.
-[******]
+So, we see that these two dimensions can be interpreted as having some meaning;
+we see that the first dimension can be seen as representing [******], while the
+second dimension can be seen as representing [******].

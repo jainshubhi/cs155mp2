@@ -114,17 +114,22 @@ title('Visual Representation of Model - Series');
 hold off
 
 %% Difference in Dimension Plot
-
+% Get predictions from both 2 and 20 dimensional model.
 pred20 = U * V';
 pred2 = U2d' * V2d;
 
-diff = pred2 - pred20;
-diff = reshape(diff, [1, 943 * 1682]);
-line(diff);
-% scatter(V2d(1, g1), V2d(2, g1), 'r');
-hold on
+% Reshape.
+pred20 = reshape(pred20, [1, 943 * 1682]);
+actual = pred20;
+pred2 = reshape(pred2, [1, 943 * 1682]);
 
-% scatter(V2d(1, g2), V2d(2, g2), 'k');
-% scatter(V2d(1, g3), V2d(2, g3), 'b');
-% scatter(V2d(1, g4), V2d(2, g4), 'g');
-hold off
+% Normalize predictions so they can be compared.
+pred20 = (pred20 - mean(pred20)) / std(pred20);
+pred2 = (pred2 - mean(pred2)) / std(pred2);
+
+% Get the difference in predictions.
+diff = pred2 - pred20;
+
+% Find mean and standard deviation of difference in scores.
+disp(mean(diff));
+disp(std(diff));
