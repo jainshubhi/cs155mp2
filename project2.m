@@ -41,21 +41,13 @@ while n > 1.1
     U = next_U;
     V = new_V(Y, U, lambda);
     next_U = new_U(Y, V, lambda);
-    n = norm((U-next_U), 'fro')
+    n = norm((U-next_U), 'fro');
 end
 
 U = next_U;
 V = new_V(Y, U, lambda);
 
 %% Part 2: Projecting U and V onto 2 dimensions.
-% Mean center both U and V so all rows have a mean of 0.
-% for i = 1:users
-%     U(i, :) = U(i, :) - mean(U(i,:));
-% end
-% for i = 1:movies
-%     V(i, :) = V(i, :) - mean(V(i,:));
-% end
-
 %% Compute the SVD of both U and V.
 [Au, Su, Bu] = svd(U, 'econ');
 [Av, Sv, Bv] = svd(V, 'econ');
