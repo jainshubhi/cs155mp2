@@ -25,22 +25,23 @@ for i = 1:length(data)
 end
 
 %% Choose a number of latent factors.
-k = 15;
+k = 20;
+
+%% Choose a value of lambda.
+lambda = .1;
 
 %% Initialize U and V randomly
 U = rand(users, k);
 V = rand(movies, k);
 
 %% Optimize U and V using ALS
-% Choose a value of lambda.
-lambda = 1;
 next_U = new_U(Y, V, lambda);
 n = norm((U-next_U), 'fro');
-while n > 0.3
+while n > 1.1
     U = next_U;
     V = new_V(Y, U, lambda);
     next_U = new_U(Y, V, lambda);
-    n = norm((U-next_U), 'fro');
+    n = norm((U-next_U), 'fro')
 end
 
 U = next_U;
@@ -68,21 +69,33 @@ file_genres = fopen('./miniproject2_data/movies_wotxt.txt');
 formatSpec = '%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d';
 genres = cell2mat(textscan(file_genres, formatSpec));
 
-%% Genre Plots
-g1 = genres(genres(:, 10) == 1);
-g2 = genres(genres(:, 16) == 1);
-g3 = genres(genres(:, 7) == 1);
-g4 = genres(genres(:, 8) == 1);
+%% Genre Plot
+genre_means1 = zeros(1, 19);
+genre_means2 = zeros(1, 19);
 
-scatter(V2d(1, g1), V2d(2, g1), 'r');
+% Get mean for each genre.
+for i = 2 : 20
+    g = genres(genres(:, i) == 1);
+    genre_means1(i - 1) = mean(V2d(1, g));
+    genre_means2(i - 1) = mean(V2d(2, g));
+end
+
+% Plot with labels.
+scatter(genre_means1, genre_means2, 'k.');
 hold on
-
-scatter(V2d(1, g2), V2d(2, g2), 'k');
-scatter(V2d(1, g3), V2d(2, g3), 'b');
-scatter(V2d(1, g4), V2d(2, g4), 'g');
+xlabel('Dimension 1');
+ylabel('Dimension 2');
+a = [1:19]';
+b = num2str(a);
+labels = cellstr(b);
+dx = 0.0001;
+dy = 0.0001;
+text(genre_means1 + dx, genre_means2 + dy, labels);
+title('Visual Representation of Model - Genres');
 hold off
 
-%% Series Plots
+%% Series Plot
+% The IDs for movies in each of these series.
 % Die Hard series
 dh = [226, 550, 144];
 % Star Trek series
@@ -90,16 +103,17 @@ s = [222, 227, 228, 229, 230, 380, 449, 450];
 % Jaws series
 j = [234, 452, 453];
 
+% Plot with labels.
 scatter(V2d(1, dh), V2d(2, dh), 'r');
 hold on
 scatter(V2d(1, s), V2d(2, s), 'k');
 scatter(V2d(1, j), V2d(2, j), 'g');
 xlabel('Dimension 1');
 ylabel('Dimension 2');
-title('Visual Representation of Model');
+title('Visual Representation of Model - Series');
 hold off
 
-%%
+%% Difference in Dimension Plot
 % scatter(V2d(1, g1), V2d(2, g1), 'r');
 hold on
 
